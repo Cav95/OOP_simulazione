@@ -3,6 +3,7 @@ package a06.e1;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.LinkedList;
 import java.util.function.UnaryOperator;
 
 public class FluentParserFactoryImpl implements FluentParserFactory {
@@ -41,7 +42,7 @@ public class FluentParserFactoryImpl implements FluentParserFactory {
                     last = this.list.stream().sorted().toList().getLast();
                 }
 
-                if (last == 0 || last != value.getLast()) {
+                if (last == 0 || last == value.getLast() - 1) {
                     this.list.addAll(value);
                     return this;
                 } else {
@@ -54,9 +55,32 @@ public class FluentParserFactoryImpl implements FluentParserFactory {
 
     @Override
     public FluentParser<Integer> repetitiveIncrementalNaturals() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'repetitiveIncrementalNaturals'");
-    }
+        return new FluentParser<Integer>() {
+            int value;        
+
+            public void setValue(int value) {
+                this.value = value;
+            }
+
+            @Override
+            public FluentParser<Integer> accept(Integer value) {
+                var test = new LinkedList<>();
+
+                
+                if (this.value == 0 || this.value != value - 1 ) {
+                    setValue(value);
+                    for (int i = 0 ; i <= value ; i++){
+                        test.
+
+                    }
+                    return this;
+                } else {
+                    throw new IllegalStateException();
+                }
+            }
+            };
+            
+        };
 
     @Override
     public FluentParser<String> repetitiveIncrementalStrings(String s) {
